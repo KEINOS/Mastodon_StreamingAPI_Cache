@@ -39,7 +39,7 @@ final class ConstructorTest extends TestCase
     public function testSetTtlAsString()
     {
         $settings = [
-            'ttl_cache' => '10',
+            'ttl' => '10',
         ];
         $cache  = new \KEINOS\MSTDN_TOOLS\Cache\Cache($settings);
         $this->assertIsObject($cache);
@@ -48,7 +48,7 @@ final class ConstructorTest extends TestCase
     public function testSetTtlAsInteger()
     {
         $settings = [
-            'ttl_cache' => 10,
+            'ttl' => 10,
         ];
         $cache  = new \KEINOS\MSTDN_TOOLS\Cache\Cache($settings);
         $this->assertIsObject($cache);
