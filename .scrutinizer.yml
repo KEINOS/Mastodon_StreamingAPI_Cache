@@ -5,3 +5,8 @@ build:
         override:
           - php-scrutinizer-run --sub-project-dir=src/
           - phpcs-run --standard=.phpcs.xml
+filter:
+    dependency_paths:
+        - "vendor/"
+        # Everything in a root level "lib" directory will be excluded from analysis
+        # but treated as a dependency
