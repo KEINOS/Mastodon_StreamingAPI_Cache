@@ -6,20 +6,6 @@ namespace KEINOS\Tests;
 
 final class MethodSetAndGetTest extends TestCase
 {
-    public function testArrayValue()
-    {
-        $key   = hash('md5', strval(time()));
-        $value = [
-            hash('md5', strval(time()))
-        ];
-
-        $cache  = new \KEINOS\MSTDN_TOOLS\Cache\Cache();
-        $cache->set($key, $value);
-
-        $expect = $value;
-        $actual = $cache->get($key);
-        $this->assertSame($expect, $actual);
-    }
 
     public function testGetUndefinedValue()
     {
@@ -34,7 +20,43 @@ final class MethodSetAndGetTest extends TestCase
         $this->assertNull($result);
     }
 
-    public function testObjectValue()
+    public function testSetArrayValue()
+    {
+        $key   = hash('md5', strval(time()));
+        $value = [
+            hash('md5', strval(time()))
+        ];
+
+        $cache  = new \KEINOS\MSTDN_TOOLS\Cache\Cache();
+        $cache->set($key, $value);
+
+        $expect = $value;
+        $actual = $cache->get($key);
+        $this->assertSame($expect, $actual);
+    }
+
+    public function testSetIntegerKey()
+    {
+        $key   = intval(time());
+        $value = hash('md5', strval(time()));
+        $cache = new \KEINOS\MSTDN_TOOLS\Cache\Cache();
+
+        $this->expectException(\TypeError::class);
+        $cache->set($key, $value);
+    }
+
+    public function testSetNullValue()
+    {
+        $key   = hash('md5', strval(time()));
+        $value = null;
+        $cache = new \KEINOS\MSTDN_TOOLS\Cache\Cache();
+
+        // We don't except "null" values
+        $this->expectException(\Exception::class);
+        $cache->set($key, $value);
+    }
+
+    public function testSetObjectValue()
     {
         $key   = hash('md5', strval(time()));
         $value = [
@@ -48,16 +70,6 @@ final class MethodSetAndGetTest extends TestCase
         $expect = $obj;
         $actual = $cache->get($key);
         $this->assertSame($expect, $actual);
-    }
-
-    public function testSetIntegerKey()
-    {
-        $key   = intval(time());
-        $value = hash('md5', strval(time()));
-        $cache = new \KEINOS\MSTDN_TOOLS\Cache\Cache();
-
-        $this->expectException(\TypeError::class);
-        $cache->set($key, $value);
     }
 
     public function testSetRandomKeyAndValue()

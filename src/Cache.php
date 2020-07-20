@@ -75,6 +75,11 @@ class Cache implements CacheInterface
 
     public function set(string $key, $value): void
     {
+        if (null === $value) {
+            $msg = 'Null value given. "null" value is NOT allowed to cache.';
+            throw new \Exception($msg);
+        }
+
         $cache_item = $this->cache_pool->getItem($key);
 
         $cache_item->set($value);

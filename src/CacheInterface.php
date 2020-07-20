@@ -63,6 +63,7 @@ interface CacheInterface
      * @param  string $key     The key to store value.
      * @param  mixed  $value   The value to be stored.
      * @return void
+     * @throws \Exception      If the value is null. We don't except "null" value.
      */
     public function set(string $key, $value);
 }
